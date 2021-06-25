@@ -54,10 +54,43 @@ export const addTask=async (req= request,res)=>{
         }
     })
 }
-export const deleteTask=(req,res)=>{
-    res.send('Hello World!!!')
+export const deleteTask= async(req,res)=>{
+    const id = req.params['id'];
+    try {
+         const db =  await connect();
+         await db.query('DELETE FROM tasks WHERE tasks.id = ?',[id])
+         res.json({
+             ok:true,
+             msg:'Se eliminó correctamente la tarea!'
+         })
+
+    } catch (error) {
+        console.log(error);
+         res.json({
+             ok:false,
+             msg:'Algo salio mal!'
+         });
+    }
 }
-export const updateTask=(req,res)=>{
-    res.send('Hello World!!!')
+export const updateTask=async (req,res)=>{
+    const id = req.params['id'];
+    try {
+         const db =  await connect();
+         const [rows]= await db.query('UPDATE tasks SET ? WHERE tasks.id = ?',
+         [
+             req.body,
+             id
+        ])
+         res.json({
+             ok:true,
+             msg:'Tarea actualizada correctamente',
+         })
+    } catch (error) {
+        console.log(error);
+         res.json({
+             ok:false,
+             msg:'Algo salio mal!'
+         });
+    }
 }
 
