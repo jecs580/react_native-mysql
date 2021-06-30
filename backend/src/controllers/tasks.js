@@ -42,14 +42,14 @@ export const getTaskCount= async(req,res)=>{
     })
 }
 export const addTask=async (req= request,res)=>{
-    const {title,description} = req.body;
+    const {tittle,description} = req.body;
     const db = await connect();
-    const [results]= await db.query('INSERT INTO tasks(tittle,description) VALUES(?,?)',[title, description])
+    const [results]= await db.query('INSERT INTO tasks(tittle,description) VALUES(?,?)',[tittle, description])
     res.json({
         ok:true,
         task:{
             id:results.insertId,
-            title,
+            tittle,
             description 
         }
     })
