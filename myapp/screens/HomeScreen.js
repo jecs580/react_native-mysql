@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { View, Text } from 'react-native'
 import {getTasks} from '../api'
 
+import Layout from '../components/Layout'
 import TaskList from '../components/TaskList'
 
 const HomeScreen = () => {
@@ -14,9 +15,9 @@ const HomeScreen = () => {
         loadTasks()
     }, [])
     return (
-        <View>
+        <Layout>
             <TaskList tasks={tasks}/>
-        </View>
+        </Layout>
     )
 }
 
