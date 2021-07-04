@@ -2,17 +2,18 @@ import React,{useState, useEffect} from 'react'
 import {FlatList, RefreshControl } from 'react-native'
 import {getTasks, deleteTask} from '../api'
 import TaskItem from './TaskItem'
-
+import { useIsFocused } from '@react-navigation/native'
 const TaskList = () => {
     const [tasks, setTasks] = useState([])
     const [refreshing, setRefreshing] = useState(false)
+    const isFocused = useIsFocused();
     const loadTasks = async()=>{
        const data = await getTasks();
        setTasks(data.taks)
     }
     useEffect(() => {
         loadTasks()
-    }, [])
+    }, [isFocused])
     const handleDelete=async(id)=>{
         await deleteTask(id)
         await loadTasks()
